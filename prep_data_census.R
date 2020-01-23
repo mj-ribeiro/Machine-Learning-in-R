@@ -40,7 +40,20 @@ base[ , 5] = scale(base[ , 5])
 base[ , 11:13] = scale(base[ , 11:13])
 
 
-#-----------------------
+#----------------------- TRAIN AND TEST
+
+library(caTools)
+
+set.seed(1)
+
+div = sample.split(base$default, SplitRatio = 0.75)
+
+df_train = subset(base, div == T)
+df_test = subset(base, div == F)
+
+
+
+
 
 
 
