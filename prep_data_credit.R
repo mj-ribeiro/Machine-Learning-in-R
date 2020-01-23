@@ -35,7 +35,7 @@ df[age <0 & !is.na(age),  ]
 
 # first aproach
 
-df = df[df$age>0, ]
+#df = df[df$age>0, ]
 
 
 # second aproach
@@ -79,7 +79,18 @@ g1+ geom_point(colour='blue')
 
 
 
+#--------------------- TRAIN & TEST
 
+#install.packages('caTools')
+
+library(caTools)
+
+set.seed(1)
+
+div = sample.split(df$default, SplitRatio = 0.75)
+
+df_train = subset(df, div == T)
+df_test = subset(df, div == F)
 
 
 
