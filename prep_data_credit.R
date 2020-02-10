@@ -1,5 +1,11 @@
 setwd("D:/Git projects/ML in R")
 
+library(fBasics)
+library(e1071)
+library(caTools)
+
+
+
 df = read.csv('credit.csv') 
 
 df$clientid = NULL
@@ -83,7 +89,6 @@ g1+ geom_point(colour='blue')
 
 #install.packages('caTools')
 
-library(caTools)
 
 set.seed(1)
 
@@ -91,6 +96,10 @@ div = sample.split(df$default, SplitRatio = 0.75)
 
 df_train = subset(df, div == T)
 df_test = subset(df, div == F)
+
+
+
+
 
 
 

@@ -46,11 +46,10 @@ library(caTools)
 
 set.seed(1)
 
-div = sample.split(base$default, SplitRatio = 0.75)
+div = sample.split(base$income, SplitRatio = 0.85)
 
-df_train = subset(base, div == T)
-df_test = subset(base, div == F)
-
+base_train = subset(base, div == T)
+base_test = subset(base, div == F)
 
 
 
