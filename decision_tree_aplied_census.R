@@ -1,19 +1,18 @@
-#--------------------------------------------------------------------------------
-#                               NAIVE BAYES
-#--------------------------------------------------------------------------------
-
+#---------------------------------------------------------------------------------
+#                             DECISION TREES
+#---------------------------------------------------------------------------------
 
 setwd("D:/Git projects/ML in R")
 
-# libraries
-
+library(rpart)
+library(rpart.plot)        
 library(fBasics)
-library(e1071)
-library(caTools)
-library(caret)  #provide metrics for confusion matrix
+library(caTools)  # split data
+library(caret)    #provide metrics for confusion matrix
 
 
-# read data
+
+#-------------- Read data
 
 base = read.csv('census.csv') 
 
@@ -41,6 +40,7 @@ base$income = factor(base$income, levels = c(' <=50K', ' >50K'), labels = c(0, 1
 
 #---------------- SCALING
 
+
 base[ , 1] = scale(base[ , 1])
 
 base[ , 3] = scale(base[ , 3])
@@ -61,26 +61,35 @@ base_train = subset(base, div == T)
 base_test = subset(base, div == F)
 
 
-#------------------ Algorithm
+
+# ------------ Algorithm
 
 
-# train
-
-clas = naiveBayes(x = base_train[-15], y = base_train$income)
-clas
-
-# test
-
-prev = predict(clas, newdata = base_test[-15])
-prev
+clas = rpart(formula=income ~ ., data = base_train)
 
 
-#-------------- Confusion Matrix
 
-conf_matrix = table(base_test[ ,15], prev )
-conf_matrix  # true values in vertical line
+# ---------- Plot
+
+rpart.plot(clas)
+
+
+
+#------------ predict
+
+
+prev = predict(clas, newdata = base_test, type = 'class')
+
+
+# -------- Confusion Matrix
+
+conf_matrix = table(base_test[ ,15], prev)
+conf_matrix
 
 confusionMatrix(conf_matrix)
+
+
+
 
 
 
