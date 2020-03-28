@@ -162,16 +162,15 @@ library(class)  # knn
 
 
 
-ret = merge(ret_sp500, ret_vix, ret_bin_def, ret_bin)
-filter3 = is.na(ret[, 1])==F & is.na(ret[, 2])==F & is.na(ret[,3])==F & is.na(ret[,4])==F
-
+ret = merge(ret_vix, ret_bin_def, ret_bin)
+filter3 = is.na(ret[, 1])==F & is.na(ret[, 2])==F & is.na(ret[,3])==F 
 ret = ret[filter3, ]
 
 
 # train and test
 
-set.seed(4)
-div = sample.split(ret$BVSP.Close, SplitRatio = 0.75)
+set.seed(40)
+div = sample.split(ret$BVSP.Close.1, SplitRatio = 0.75)
 df_train = subset(ret, div == TRUE)
 df_test = subset(ret, div == FALSE)
 
@@ -195,7 +194,7 @@ risk = ifelse(prob>0.5, 1, 0)
 #------- Confusion Matrix
 
 
-conf_matrix = table(df_test[ ,4], risk)
+conf_matrix = table(df_test[ ,3], risk)
 
 conf_matrix
 
@@ -204,6 +203,29 @@ confusionMatrix(conf_matrix)
 
 
 
+#--------------  Algorithm SVM
+
+60*12.15-60*12.05
+
+
+
+library(e1071)
+
+clas2 = svm(formula= BVSP.Close.1 ~., data=df_train,
+           type= 'C-classification', kernel='radial', cost=5)
+summary(clas2)
+
+prev = predict(clas2, newdata = df_test[-4])
+
+
+
+#------------ Confusion Matrix
+
+conf_matrix = table(df_test[ ,4], prev)
+conf_matrix
+
+
+confusionMatrix(conf_matrix)
 
 
 
