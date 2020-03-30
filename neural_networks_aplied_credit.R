@@ -56,7 +56,7 @@ df_test = subset(df, div == FALSE)
 #---- Algorithm
 
 
-install.packages('h2o')
+
 library('h2o')
 h2o.init(nthreads = -1)
 
@@ -89,6 +89,36 @@ conf_matrix
 
 
 confusionMatrix(conf_matrix)
+
+
+
+
+#----------- Plots
+
+library(neuralnet)
+
+NN = neuralnet(default ~ income + loan + age, df_train, hidden = 3, linear.output = T)
+
+# traçar rede neural
+plot (NN)
+
+
+prev2 = predict(NN, df_test[, -4])
+
+
+#--- Confusion matrix
+
+conf_matrix2 = table(df_test[,4], prev)
+
+confusionMatrix(conf_matrix2)
+
+
+
+
+
+
+
+
 
 
 
