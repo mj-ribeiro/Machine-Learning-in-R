@@ -12,7 +12,8 @@ library(fBasics)
 library(caTools)  # split data
 library(caret)    #provide metrics for confusion matrix
 
-
+install.packages('glue')
+library(glue)
 
 # data
 
