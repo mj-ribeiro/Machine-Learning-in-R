@@ -22,6 +22,15 @@ df$clientid = NULL
 attach(df)
 
 
+pie(table(df$default), radius = 1)
+text(locator(n=1),
+     paste(round(prop.table(table(df$default))[1],
+                 digits=2)*100,"%"))
+text(locator(n=1),                                    # esse locator permite escolher o lugar da figura 
+     paste(round(prop.table(table(df$default))[2],   # que vc quer escrever
+                 digits=2)*100,"%"))
+
+
 # drop na values
 
 m_age = mean(age[age>0 ], na.rm = T)  # average without considering negative values
