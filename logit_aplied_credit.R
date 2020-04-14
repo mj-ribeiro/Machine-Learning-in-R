@@ -61,10 +61,13 @@ df_test = subset(df, div == FALSE)
 
 clas = glm(formula = default ~. , family = binomial, data=df_train)
 
+fit = clas$fitted.values
+View(fit)
 
-
-
+summary(fit)
 summary(clas)
+
+
 
 prob = predict(clas, type='response', newdata = df_test)
 
