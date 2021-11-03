@@ -19,7 +19,6 @@ base = read.csv('census.csv')
 base$X = NULL
 
 
-
 attach(base)
 
 
@@ -38,6 +37,7 @@ base$native.country = factor(base$native.country, levels = c(' Cambodia', ' Cana
 base$income = factor(base$income, levels = c(' <=50K', ' >50K'), labels = c(0, 1))
 
 
+
 #---------------- SCALING
 
 
@@ -49,6 +49,8 @@ base[ , 5] = scale(base[ , 5])
 
 base[ , 11:13] = scale(base[ , 11:13])
 
+
+#saveRDS(base, 'census.rds')
 
 #----------------------- TRAIN AND TEST
 
